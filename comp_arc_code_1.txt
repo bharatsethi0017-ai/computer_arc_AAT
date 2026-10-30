@@ -1,0 +1,53 @@
+def to_twos_complement(value, bits):
+    """Converts an integer to its 2's complement binary string representation."""
+    if value < 0:
+        value = (1 << bits) + value
+    return f"{value:0{bits}b}"
+
+def from_twos_complement(binary_str, bits):
+    """Converts a 2's complement binary string back to a signed integer."""
+    val = int(binary_str, 2)
+    if val & (1 << (bits - 1)):  # If the sign bit is set
+        val -= (1 << bits)
+    return val
+
+def check_overflow(a_bin, b_bin, res_bin, bits):
+    """Checks for arithmetic overflow (if two same-sign numbers produce a different-sign result)."""
+    sign_a = int(a_bin[0])
+    sign_b = int(b_bin[0])
+    sign_res = int(res_bin[0])
+    return sign_a == sign_b and sign_a != sign_res
+
+def run_signed_arithmetic(a, b):
+    print(f"--- Arithmetic Expression: ({a}) + ({b}) ---")
+    
+    # 1. Display Operands in 8-bit format as requested
+    a_bin8 = to_twos_complement(a, 8)
+    b_bin8 = to_twos_complement(b, 8)
+    print(f"Operand A (8-bit): {a_bin8}")
+    print(f"Operand B (8-bit): {b_bin8}")
+    
+    # 2. Perform 16-bit 2's complement execution
+    a_bin16 = to_twos_complement(a, 16)
+    b_bin16 = to_twos_complement(b, 16)
+    
+    # Perform binary addition using fixed 16-bit boundaries
+    mask_16 = (1 << 16) - 1
+    sum_int = (int(a_bin16, 2) + int(b_bin16, 2)) & mask_16
+    res_bin16 = f"{sum_int:0{16}b}"
+    res_dec = from_twos_complement(res_bin16, 16)
+    
+    # Slice/extract the lower 8 bits for 8-bit result presentation
+    res_bin8 = res_bin16[-8:]
+    
+    # 3. Check for arithmetic overflow
+    overflow_occurred = check_overflow(a_bin16, b_bin16, res_bin16, 16)
+    
+    print(f"Final 16-bit Binary Result: {res_bin16}")
+    print(f"Final 8-bit Binary Slice:   {res_bin8}")
+    print(f"Final Decimal Result:       {res_dec}")
+    print(f"Arithmetic Overflow:         {overflow_occurred}\n")
+
+# Run expressions
+run_signed_arithmetic(24, 17)
+run_signed_arithmetic(-25, -18)

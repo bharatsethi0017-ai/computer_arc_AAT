@@ -1,0 +1,15 @@
+--- Arithmetic Expression: (24) + (17) ---
+Operand A (8-bit): 00011000
+Operand B (8-bit): 00010001
+Final 16-bit Binary Result: 0000000000101001
+Final 8-bit Binary Slice:   00101001
+Final Decimal Result:       41
+Arithmetic Overflow:         False
+
+--- Arithmetic Expression: (-25) + (-18) ---
+Operand A (8-bit): 11100111
+Operand B (8-bit): 11101110
+Final 16-bit Binary Result: 1111111111010101
+Final 8-bit Binary Slice:   11010101
+Final Decimal Result:       -43
+Arithmetic Overflow:         False

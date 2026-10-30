@@ -1,0 +1,11 @@
+--- Operation A: Logical Left Shift by 2 ---
+Original 8-bit Input: 11110110
+  Step 1: Shift Left by 1 -> Drops '1', appends '0' -> Result: 11101100
+  Step 2: Shift Left by 1 -> Drops '1', appends '0' -> Result: 11011000
+Final 8-bit Result:   11011000
+
+--- Operation B: Logical Right Shift by 2 ---
+Original 8-bit Input: 10010100
+  Step 1: Shift Right by 1 -> Drops '0', prepends '0' -> Result: 01001010
+  Step 2: Shift Right by 1 -> Drops '0', prepends '0' -> Result: 00100101
+Final 8-bit Result:   00100101
